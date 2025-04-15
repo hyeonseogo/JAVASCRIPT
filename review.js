@@ -25,9 +25,6 @@ Rucy.getFamily = function () {
 console.log(`종: ${Rucy.family}`);
 console.log(`getFamily: ${Rucy.getFamily()}`);
 
-console.log(`종: ${PPomi.family}`); // undefined
-//console.log(`getFamily: ${PPomi.getfamily()}`); //TypeError
-
 console.log("---------------------------");
 
 Dog.prototype.owner = "김사과";
