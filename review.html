@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>시계</title>
+  </head>
+  <body>
+    <h2>window</h2>
+    <button onclick="showWindowInfo()">browser information</button>
+    <script>
+      function showWindowInfo() {
+        console.log(window.navigator.appCodeName);
+        console.log(window.navigator.product);
+        console.log(window.navigator.userAgent);
+        console.log(window.location.href);
+        console.log(window.innerWidth);
+        console.log(window.innerHeight);
+
+        window.setTimeout(function () {
+          window.alert("3초가 지났다");
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>
