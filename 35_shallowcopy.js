@@ -1,12 +1,9 @@
-/*
-const obj1 = { name: "김사과", age: 20 };
+/*const obj1 = { name: "김사과", age: 20 };
 const obj2 = Object.assign({}, obj1);
 
 obj2.name = "오렌지";
 console.log(obj1.name);
-console.log(obj2.name);
-*/
-
+console.log(obj2.name);*/
 /*
 const obj1 = { name: "김사과", age: 20 };
 const obj2 = { ...obj1 };

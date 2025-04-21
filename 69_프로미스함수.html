@@ -32,7 +32,7 @@
         .then(console.log);
 
       // Promise.all: 병렬적으로 한 번에 Promise들을 실행. 하나의 프로미스라도 실패하면 전체를 에러로 처리함.
-      Promise.all([getBanana(), getApple()]).then((fruits) =>
+      /*Promise.all([getBanana(), getApple()]).then((fruits) =>
         console.log("all", fruits)
       );
 
@@ -44,7 +44,7 @@
       // Promise.allSettled: 여러 프로미스를 병렬적으로 처리하되 하나의 프로미스가 실패해도 무조건 이행
       Promise.allSettled([getBanana(), getApple(), getOrange()])
         .then((fruits) => console.log("allSettled", fruits))
-        .catch(console.log);
+        .catch(console.log);*/
     </script>
   </body>
 </html>

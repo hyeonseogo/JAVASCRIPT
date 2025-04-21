@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>미세먼지 경보 정보 조회</title>
+    <script>
+      async function fetchAirQualityData() {
+        const year = document.getElementById("yearSelect").value;
+        const url =
+          "https://apis.data.go.kr/B552584/UlfptcaAlarmInqireSvc/getUlfptcaAlarmInfo";
+        const serviceKey =
+          "NUqg9iZg+R57kpL1qrF1tst+AG3VXF5LAecO+CNKVMPmo34670TTUOan29Sq5DgB6/UXYTHmJOsUHoUp0CuKQw==";
+        const params = new URLSearchParams({
+          ServiceKey: serviceKey,
+          returnType: "JSON",
+          numOfRows: "100",
+          pageNo: "1",
+          year: year,
+          itemCode: "PM10",
+        });
+
+        const response = await fetch(`${url}?${params}`);
+        const data = await response.json();
+
+        const list = data.response.body.items;
+        const tableBody = document.getElementById("resultBody");
+        tableBody.innerHTML = "";
+
+        if (!list || list.length === 0) {
+          tableBody.innerHTML =
+            "<tr><td colspan='6'>데이터가 없습니다.</td></tr>";
+          return;
+        }
+
+        const selectedRegion = document.getElementById("regionSelect").value;
+
+        const filteredList =
+          selectedRegion === "all"
+            ? list
+            : list.filter((item) => item.districtName.includes(selectedRegion));
+
+        if (!filteredList || filteredList.length === 0) {
+          tableBody.innerHTML =
+            "<tr><td colspan='6'>선택한 지역의 데이터가 없습니다.</td></tr>";
+          return;
+        }
+
+        filteredList.forEach((item, index) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${item.districtName}</td>
+          <td>${item.issueDate}</td>
+          <td>${item.issueTime}</td>
+          <td>${item.issueVal}</td>
+          <td>${item.issueGbn}</td>
+        `;
+          tableBody.appendChild(row);
+        });
+      }
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 2rem;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 1rem;
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        text-align: center;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      button {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        margin-left: 0.5rem;
+      }
+      select {
+        padding: 0.5rem;
+        font-size: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>미세먼지(PM10) 경보 정보</h2>
+
+    <label for="regionSelect">지역 선택:</label>
+    <select id="regionSelect">
+      <option value="all">전체</option>
+      <option value="서울">서울</option>
+      <option value="부산">부산</option>
+      <option value="대구">대구</option>
+      <option value="인천">인천</option>
+      <option value="광주">광주</option>
+      <option value="대전">대전</option>
+      <option value="울산">울산</option>
+      <option value="경기">경기</option>
+      <option value="강원">강원</option>
+      <option value="충북">충북</option>
+      <option value="충남">충남</option>
+      <option value="전북">전북</option>
+      <option value="전남">전남</option>
+      <option value="경북">경북</option>
+      <option value="경남">경남</option>
+      <option value="제주">제주</option>
+      <option value="세종">세종</option>
+    </select>
+
+    <label for="yearSelect">연도 선택:</label>
+    <select id="yearSelect"></select>
+    <button onclick="fetchAirQualityData()">조회하기</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>지역</th>
+          <th>발령일</th>
+          <th>발령시간</th>
+          <th>농도</th>
+          <th>경보단계</th>
+        </tr>
+      </thead>
+      <tbody id="resultBody">
+        <tr>
+          <td colspan="6">버튼을 눌러 데이터를 불러오세요</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const yearSelect = document.getElementById("yearSelect");
+        const currentYear = new Date().getFullYear();
+        for (let y = currentYear; y >= 2021; y--) {
+          const option = document.createElement("option");
+          option.value = y;
+          option.textContent = y;
+          yearSelect.appendChild(option);
+        }
+      });
+    </script>
+  </body>
+</html>

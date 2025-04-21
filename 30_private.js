@@ -16,7 +16,7 @@ const user = new User("apple", "1111");
 console.log(user.userid);
 console.log(user.checkPassword("1111"));
 console.log(user.checkPassword("abcd"));
-console.log(user.#Password);
+// console.log(user.#password);
 
-// user.password = '1234';
-// console.log(user.password);
+user.password = "1234";
+console.log(user.password);

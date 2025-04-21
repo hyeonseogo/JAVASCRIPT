@@ -20,7 +20,7 @@ const obj = {
     setTimeout(function () {
       console.log("안녕! 나는" + this.name);
       // 일반함수에서 this의 특징 : 가장 가까운 곳을 가리킴.
-    }, 1000); // 1000 -> 1초
+    }, 1000); // 1000 -> 1초 // 안녕! 나는undefined
   },
 };
 
