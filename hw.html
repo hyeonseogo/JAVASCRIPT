@@ -6,6 +6,7 @@
     <script>
       async function fetchAirQualityData() {
         const year = document.getElementById("yearSelect").value;
+        const ID = document.getElementById("idSelect").value;
         const url =
           "https://apis.data.go.kr/B552584/UlfptcaAlarmInqireSvc/getUlfptcaAlarmInfo";
         const serviceKey =
@@ -16,7 +17,7 @@
           numOfRows: "100",
           pageNo: "1",
           year: year,
-          itemCode: "PM10",
+          itemCode: ID,
         });
 
         const response = await fetch(`${url}?${params}`);
@@ -54,11 +55,24 @@
           <td>${item.issueTime}</td>
           <td>${item.issueVal}</td>
           <td>${item.issueGbn}</td>
+          <td>${item.itemCode}</td>
         `;
           tableBody.appendChild(row);
         });
       }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const yearSelect = document.getElementById("yearSelect");
+        const currentYear = new Date().getFullYear();
+        for (let y = currentYear; y >= 2021; y--) {
+          const option = document.createElement("option");
+          option.value = y;
+          option.textContent = y;
+          yearSelect.appendChild(option);
+        }
+      });
     </script>
+
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -90,7 +104,7 @@
     </style>
   </head>
   <body>
-    <h2>미세먼지(PM10) 경보 정보</h2>
+    <h2>미세먼지 경보 정보</h2>
 
     <label for="regionSelect">지역 선택:</label>
     <select id="regionSelect">
@@ -114,6 +128,12 @@
       <option value="세종">세종</option>
     </select>
 
+    <label for="idSelect">항목 선택 (PM10 / PM2.5):</label>
+    <select id="idSelect">
+      <option value="PM10">PM10 (미세먼지)</option>
+      <option value="PM25">PM2.5 (초미세먼지)</option>
+    </select>
+
     <label for="yearSelect">연도 선택:</label>
     <select id="yearSelect"></select>
     <button onclick="fetchAirQualityData()">조회하기</button>
@@ -127,26 +147,14 @@
           <th>발령시간</th>
           <th>농도</th>
           <th>경보단계</th>
+          <th>미세먼지 등급</th>
         </tr>
       </thead>
       <tbody id="resultBody">
         <tr>
-          <td colspan="6">버튼을 눌러 데이터를 불러오세요</td>
+          <td colspan="7">버튼을 눌러 데이터를 불러오세요</td>
         </tr>
       </tbody>
     </table>
-
-    <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        const yearSelect = document.getElementById("yearSelect");
-        const currentYear = new Date().getFullYear();
-        for (let y = currentYear; y >= 2021; y--) {
-          const option = document.createElement("option");
-          option.value = y;
-          option.textContent = y;
-          yearSelect.appendChild(option);
-        }
-      });
-    </script>
   </body>
 </html>
