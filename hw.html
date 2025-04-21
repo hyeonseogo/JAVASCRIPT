@@ -51,9 +51,13 @@
           row.innerHTML = `
           <td>${index + 1}</td>
           <td>${item.districtName}</td>
+          <td>${item.moveName}</td>
           <td>${item.issueDate}</td>
+          <td>${item.clearDate}</td>
           <td>${item.issueTime}</td>
+          <td>${item.clearTime}</td>
           <td>${item.issueVal}</td>
+          <td>${item.clearVal}</td>
           <td>${item.issueGbn}</td>
           <td>${item.itemCode}</td>
         `;
@@ -143,16 +147,20 @@
         <tr>
           <th>#</th>
           <th>지역</th>
-          <th>발령일</th>
-          <th>발령시간</th>
-          <th>농도</th>
+          <th>유입 경로</th>
+          <th>경보 발령일</th>
+          <th>경보 해제일</th>
+          <th>발령 시간</th>
+          <th>발령 해제 시간</th>
+          <th>경보 발령 시 측정값</th>
+          <th>경보 해제를 위한 기준값</th>
           <th>경보단계</th>
           <th>미세먼지 등급</th>
         </tr>
       </thead>
       <tbody id="resultBody">
         <tr>
-          <td colspan="7">버튼을 눌러 데이터를 불러오세요</td>
+          <td colspan="11">버튼을 눌러 데이터를 불러오세요</td>
         </tr>
       </tbody>
     </table>
